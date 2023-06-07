@@ -15,10 +15,12 @@
 char	*get_next_line(int fd)
 {
 	char	buffer[BUFFER_SIZE];
-	static char	**memory;
-	int	i;
+	int	bytes_read;
+	char	*result;
 
-	i = 0;
-	read(fd, buffer, BUFFER_SIZE);
-
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	result = cpy(buffer, 0, bytes_read);
+	if (!result)
+		return (NULL);
+	return (result);
 }

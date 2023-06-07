@@ -12,4 +12,17 @@
 
 #include "get_next_line.h"
 
+char	*cpy(char *buffer, int index, int bytes_read)
+{
+	char	*result;
 
+	result = (char *)malloc(sizeof(char) * bytes_read + 1);
+	if (!result)
+		return (NULL);
+	while (index < bytes_read)
+	{
+		result[index] = buffer[index];
+		index++;
+	}
+	return (result);
+}
