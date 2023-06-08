@@ -12,10 +12,14 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFFER_SIZE 1
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 25
+#endif
+
 #include <unistd.h>
 #include <stdlib.h>
 
+char	*get_next_line(int fd);
 char	*cpy(char *buffer, int index, int bytes_read);
 
 #endif

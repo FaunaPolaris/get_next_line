@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:35:49 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/06/05 13:35:09 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/05/29 09:52:49 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include "get_next_line.h"
+# define BUFFER_SIZE 1
+#include <unistd.h>
+#include <stdlib.h>
 
-char	*cpy(char *buffer, int index, int bytes_read)
-{
-	char	*result;
+char	*get_next_line(int fd);
+char	*cpy(char *buffer, int index, int bytes_read);
 
-	result = (char *)malloc(sizeof(char) * bytes_read + 1);
-	if (!result)
-		return (NULL);
-	while (index < bytes_read)
-	{
-		result[index] = buffer[index];
-		index++;
-	}
-	result[index] = '\0';
-	return (result);
-}
+#endif
