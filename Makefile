@@ -15,6 +15,9 @@ $(NAME): $(SRC_OBJS)
 GDB: $(SRC_OBJS)
 	$(CC) -g3 $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
 
+split: $(SRC_OBJS)
+	$(CC) -g3 $(CC_FLAGS) -I . ./mains/main_split.c -o split $(SRC_OBJS)
+
 $(SRC_OBJS): $(SRC_FILES)
 	$(CC) $(CC_FLAGS) -c $(SRC_FILES)
 clean: 
@@ -25,4 +28,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re GDB
+.PHONY: all clean fclean re GDB split

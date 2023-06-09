@@ -12,11 +12,26 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFFER_SIZE 1
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 150
+#endif
+
 #include <unistd.h>
 #include <stdlib.h>
 
+typedef	struct	s_line
+{
+	char	*text;
+	char	*extra;
+	int	number;
+	struct s_line	*next;
+	struct s_line	*head;
+}	t_line;
+
 char	*get_next_line(int fd);
-char	*cpy(char *buffer, int index, int bytes_read);
+char	*cpy(char *buffer, int index, int limit);
+int	next_line(char *buffer, int index);
+int	count_lines(char *buffer);
+char	**split(char *buffer, int lines);
 
 #endif
