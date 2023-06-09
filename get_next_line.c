@@ -16,11 +16,16 @@ char	*get_next_line(int fd)
 {
 	char	buffer[BUFFER_SIZE];
 	int	bytes_read;
-	char	*result;
+	int	line;
+	static t_list	memory;
+	static int	current;
 
+	current++;
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	result = cpy(buffer, 0, bytes_read);
-	if (!result)
-		return (NULL);
-	return (result);
+	line = count_lines(buffer);
+	if (!memory)
+		memory = new_list(buffer, line);
+	else
+		add_list(buffer, line, memory);
+	return (memory);
 }

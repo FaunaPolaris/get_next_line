@@ -27,3 +27,14 @@ char	*cpy(char *buffer, int index, int bytes_read)
 	result[index] = '\0';
 	return (result);
 }
+
+int	next_line(char *buffer, int index)
+{
+	while (buffer[index] != '\n' && buffer[index])
+	{
+		index++;
+		if (buffer[index] == '\0')
+			return (index | 0x80);
+	}
+	return (index);
+}

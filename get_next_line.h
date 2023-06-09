@@ -13,13 +13,21 @@
 # define GET_NEXT_LINE_H
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 20
+# define BUFFER_SIZE 150
 #endif
 
 #include <unistd.h>
 #include <stdlib.h>
 
+typedef	struct	s_list
+{
+	char	*text;
+	int	number;
+	void	*next;
+}	t_list
+
 char	*get_next_line(int fd);
 char	*cpy(char *buffer, int index, int bytes_read);
+int	next_line(char *buffer, int index);
 
 #endif

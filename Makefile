@@ -10,6 +10,9 @@ CLEAN		=	rm -rf
 all: $(NAME)
 
 $(NAME): $(SRC_OBJS)
+	$(CC) $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
+
+GDB: $(SRC_OBJS)
 	$(CC) -g3 $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
 
 $(SRC_OBJS): $(SRC_FILES)
@@ -22,4 +25,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re GDB
