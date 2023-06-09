@@ -10,7 +10,7 @@ CLEAN		=	rm -rf
 all: $(NAME)
 
 $(NAME): $(SRC_OBJS)
-	$(CC) $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
+	$(CC) -g3 $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
 
 $(SRC_OBJS): $(SRC_FILES)
 	$(CC) $(CC_FLAGS) -c $(SRC_FILES)

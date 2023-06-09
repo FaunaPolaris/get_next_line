@@ -13,7 +13,8 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 		return(0);
 	result = get_next_line(fd);
-	printf("buffer size: %d\nresult: %s\n",BUFFER_SIZE, result);
+	printf("buffer size: %d\n", (BUFFER_SIZE));	
+	printf("result: %s\n", result);
 	close(fd);
 	free (result);
 	return (1);
