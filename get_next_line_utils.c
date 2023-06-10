@@ -6,7 +6,7 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:35:49 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/06/05 13:35:09 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:04:58 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*cpy(char *buffer, int index, int limit)
 {
 	char	*result;
-	int	i;
+	int		i;
 
 	i = -1;
 	result = (char *)malloc(sizeof(char) * index + 1);
@@ -40,7 +40,7 @@ int	next_line(char *buffer, int index)
 	return (index);
 }
 
-int	count_lines(char *buffer)
+int	count_lines(char *buffer, int flag)
 {
 	int	i;
 	int	counter;
@@ -49,10 +49,10 @@ int	count_lines(char *buffer)
 	counter = 0;
 	while (buffer[i])
 	{
-		if (buffer[i] == '\n')
+		if (buffer[i] == '\n' || buffer[i + 1] == '\0')
 			counter++;
-		if (buffer[i + 1] == '\0')
-			return (counter + 1);
+		if (flag == 1 && buffer[i + 1] == '\0')
+			return (-1);
 		i++;
 	}
 	return (counter);
@@ -61,8 +61,8 @@ int	count_lines(char *buffer)
 char	**split(char *buffer, int lines)
 {
 	char	**content;
-	int	pos;
-	int	goal;
+	int			pos;
+	int			goal;
 
 	goal = 0;
 	pos = 0;
@@ -78,6 +78,16 @@ char	**split(char *buffer, int lines)
 		pos++;
 		goal++;
 	}
-	content[lines + 1] = '\0';
+	content[lines] = NULL;
 	return (content);
+}
+
+size_t	length(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
