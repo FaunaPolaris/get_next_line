@@ -20,18 +20,14 @@
 #  define BUFFER_SIZE 20
 # endif
 
-typedef struct s_line
-{
-	char			*text;
-	char			*extra;
-	int				number;
-	struct s_line	*next;
-}	t_line;
-
 char	*get_next_line(int fd);
-char	*cpy(char *buffer, int index, int limit);
-int		next_line(char *buffer, int index);
-int		count_lines(char *buffer);
-char	**split(char *buffer, int lines);
+char	*fp_readcpy(int fd, char end);
+char	*fp_cpychr(char *src, char end);
+char	*fp_rcpychr(char *src, char end);
+char	*fp_catchr(char *first, char *last, char end);
+char	*fp_strcpy(char *input);
+char	*fp_strcat(char *first, char *last);
+int		fp_strchr(char *input, char end);
+int		fp_strlen(char *input);
 
 #endif

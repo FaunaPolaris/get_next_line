@@ -14,63 +14,93 @@
 
 char	*get_next_line(int fd)
 {
-	char			buffer[BUFFER_SIZE];
-	int			bytes_read;
-	static t_line		*memory;
-	char	**content;
-	static int		number_return;
+	static char	*memory;
+	char		*output;
 
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	content = split(buffer, count_lines(buffer, 0));
-	memory = add_list(content, count_lines(buffer), buffer, memory);
-	free (content);
-	while(memory.number != number_return)
-		memory = memory->next;
-	number_return++;
-	if (memory->next.extra)
-		memory.text = fusion(memory.text, memory->next.text);
-	return (memory.text);
-}
-
-t_list	*add_list(char **content, int final_size, char *buffer, t_list *memory)
-{
-	int	current_size;
-	int		final;
-
-	current_size = 0;
+	memory = fp_readcpy(fd, '\n');
 	if (!memory)
-	{
-		memory = (t_list *)malloc(sizeof(t_list));
-		memory->next = &memory;
-	}
-	if (!count_lines(buffer, 1))
-		final_size--;
-	while (current_size < final_size)
-	{
-		add(new_line(content[current_size], current_size, 1), start);
-		current_size++;
-	}
-	if (!count_lines(buffer, 1))
-		add(new_line(content[final_size + 1], final_size + 1, 2), start);
-	return (memory);
-}
-
-t_list	*new_line(char *content, int position, int flags)
-{
-	t_list	*new_node;
-
-	new_node = (t_list *)malloc(sizeof(t_list));
-	if (!new_node)
 		return (NULL);
-	if (flags == 1)
-		new_node->text = cpy(content, 0, length(content));
-	else
-		new_node->extra = cpy(content, 0 length(content));
-	new_node.number = position;
-	return (new_node);
+	output = fp_cpychr(memory, '\n');
+	if (!output)
+		return (NULL);
+	memory = fp_rcpychr(memory, '\n');
+	if (!memory)
+		return (NULL);
+	return (output);
 }
 
-void	add(t_list *node, t_list *prev)
+char	*fp_readcpy(int fd, char end)
 {
-	prev->next = node;
+	char	*output;
+	char		buffer[BUFFER_SIZE];
+	int		bytes_read;
+
+	bytes_read = 0;
+	bytes_read += 1;
+	if (fd < 0)
+		return (NULL);
+	while (1 == 1)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (!output)
+			output = fp_strcpy(buffer);
+		else
+			output = fp_strcat(output, buffer);
+		if (fp_strchr(buffer, end) || !output)
+			break;
+	}
+	return (output);
 }
+
+char	*fp_cpychr(char *src, char end)
+{
+	char	*output;
+	int		i;
+
+	i = 0;
+	output = (char *)malloc(sizeof(char) * fp_strchr(src, end) + 1);
+	if (!output)
+		return (NULL);
+	while (src[i++] != end)
+		output[i] = src[i];
+	output[i] = '\0';
+	return (output);
+}
+
+char	*fp_rcpychr(char *src, char end)
+{
+	char	*output;
+	int	i;
+	int	j;
+
+	i = fp_strchr(src, end);
+	j = 0;
+	output = (char *)malloc(sizeof(char) * (i - fp_strlen(src)));
+	if (!output)
+		return (NULL);
+	while (src[i])
+		output[j++] = src[i++];
+	return (output);
+}
+
+char	*fp_catchr(char *first, char *last, char end)
+{
+	char	*output;
+	int		size;
+	int	i;
+	int	j;
+
+	size = fp_strlen(first) + fp_strchr(last, end);
+	output = (char *)malloc(sizeof(char) * size + 1);
+	if (!output)
+		return (NULL);
+	i = 0;
+	while (first[i])
+		output[i] = first[i];
+	j = 0;
+	while (last[j++] && i++)
+		output[i] = last[j++];
+	free(first);
+	return (output);
+}
+

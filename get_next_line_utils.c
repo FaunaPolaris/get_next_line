@@ -12,82 +12,58 @@
 
 #include "get_next_line.h"
 
-char	*cpy(char *buffer, int index, int limit)
+int	fp_strchr(char *input, char end)
 {
-	char	*result;
+	int	i;
+
+	i = 0;
+	while (input[i++] != end && input[i])
+		;
+	if (input[i] != '\n')
+		return (0);
+	return (i);
+}
+
+int	fp_strlen(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i++])
+		;
+	return (i);
+}
+
+char	*fp_strcpy(char *input)
+{
+	char	*output;
 	int		i;
 
-	i = -1;
-	result = (char *)malloc(sizeof(char) * index + 1);
-	if (!result)
+	output = (char *)malloc(sizeof(char) * (fp_strlen(input) + 1));
+	if (!output)
 		return (NULL);
-	result[index] = '\0';
-	while (index < limit)
-	{
-		result[++i] = buffer[index++];
-	}
-	return (result);
-}
-
-int	next_line(char *buffer, int index)
-{
-	while (buffer[index] != '\n' && buffer[index])
-	{
-		index++;
-		if (buffer[index] == '\0')
-			return (index);
-	}
-	return (index);
-}
-
-int	count_lines(char *buffer, int flag)
-{
-	int	i;
-	int	counter;
-
 	i = 0;
-	counter = 0;
-	while (buffer[i])
-	{
-		if (buffer[i] == '\n' || buffer[i + 1] == '\0')
-			counter++;
-		if (flag == 1 && buffer[i + 1] == '\0')
-			return (-1);
-		i++;
-	}
-	return (counter);
+	while (input[i++])
+		output[i] = input[i];
+	output[i] = '\0';
+	return (output);
 }
 
-char	**split(char *buffer, int lines)
+char	*fp_strcat(char *first, char *last)
 {
-	char	**content;
-	int			pos;
-	int			goal;
+	char	*output;
+	int		i;
+	int		j;
+	int		size;
 
-	goal = 0;
-	pos = 0;
-	content = (char **)malloc(sizeof(char *) * (lines + 1));
-	if (!content)
-		return (NULL);
-	while (goal <= lines)
-	{
-		content[goal] = cpy(buffer, pos, next_line(buffer, pos));
-		if (!content[goal])
-			return (NULL);
-		pos = (next_line(buffer, pos));
-		pos++;
-		goal++;
-	}
-	content[lines] = NULL;
-	return (content);
-}
-
-size_t	length(char *str)
-{
-	int	i;
-
+	size = fp_strlen(first) + fp_strlen(last);
+	output = (char *)malloc(sizeof(char) * (size + 1));
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	while (i < fp_strlen(first) && i++)
+		output[i] = first[i];
+	j = 0;
+	while (j < fp_strlen(last) && i++)
+		output[i] = last[j++];
+	free (first);
+	return (output);
 }
