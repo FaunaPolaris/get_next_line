@@ -6,7 +6,7 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:35:49 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/06/10 18:04:58 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:28:24 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ int	fp_strchr(char *input, char end)
 	int	i;
 
 	i = 0;
-	while (input[i++] != end && input[i])
-		;
-	if (input[i] != '\n')
+	if (input[i] == end)
 		return (0);
+	while (input[i] != end)
+	{
+		i++;
+		if (input[i] == '\0')
+			return (-1);
+	}
 	return (i);
 }
 
@@ -28,9 +32,11 @@ int	fp_strlen(char *input)
 {
 	int	i;
 
+	if (!input)
+		return (0);
 	i = 0;
-	while (input[i++])
-		;
+	while (input[i])
+		i++;
 	return (i);
 }
 
@@ -43,27 +49,36 @@ char	*fp_strcpy(char *input)
 	if (!output)
 		return (NULL);
 	i = 0;
-	while (input[i++])
+	while (input[i])
+	{
 		output[i] = input[i];
+		i++;
+	}
 	output[i] = '\0';
 	return (output);
 }
 
-char	*fp_strcat(char *first, char *last)
+char	*fp_strcat(char **first, char *last)
 {
 	char	*output;
 	int		i;
 	int		j;
 	int		size;
 
-	size = fp_strlen(first) + fp_strlen(last);
+	size = fp_strlen(first[0]) + fp_strlen(last);
 	output = (char *)malloc(sizeof(char) * (size + 1));
 	i = 0;
-	while (i < fp_strlen(first) && i++)
-		output[i] = first[i];
+	while (i < fp_strlen(first[0]))
+	{
+		output[i] = first[0][i];
+		i++;
+	}
 	j = 0;
-	while (j < fp_strlen(last) && i++)
-		output[i] = last[j++];
-	free (first);
+	while (j < fp_strlen(last))
+	{
+		output[i] = last[j];
+		i++;
+		j++;
+	}
 	return (output);
 }

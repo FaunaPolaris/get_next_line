@@ -6,12 +6,16 @@ int	main(int argc, char **argv)
 {
 	int	fd;
 	int	i;
+	char	*output;
 
 	argc += 1;
 	fd = open (argv[1], O_RDONLY);
+	i = 0;
 	while (i < 10)
 	{
-		printf("%d: %s\n", i, get_next_line(fd));
+		output = get_next_line(fd);
+		printf("%d: %s\n", i, output);
 		i++;
+		free(output);
 	}
 }

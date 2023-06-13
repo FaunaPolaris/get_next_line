@@ -13,7 +13,7 @@ $(NAME): $(SRC_OBJS)
 	$(CC) $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
 
 GDB: $(SRC_OBJS)
-	$(CC) -g3 $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
+	$(CC) $(CC_FLAGS) -I . $(MAIN) -o $(NAME) $(SRC_OBJS)
 
 
 $(SRC_OBJS): $(SRC_FILES)

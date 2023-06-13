@@ -1,10 +1,4 @@
-First Line
-Second Line
-Third Line
-Fourth Line
-Fifth Line
-Sixth Line
-Seventh Line
-Eight Line
-Ninth Line
-Tenth Line
+Hello World
+
+I'm Fauna Polaris your friendly neighborhood astronaut fairy.
+You're welcome to stay.
