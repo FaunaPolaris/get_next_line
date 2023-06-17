@@ -21,9 +21,9 @@ int	fp_strchr(char *input, char end)
 		return (0);
 	while (input[i] != end)
 	{
-		i++;
 		if (input[i] == '\0')
 			return (-1);
+		i++;
 	}
 	return (i);
 }
@@ -35,8 +35,13 @@ int	fp_strlen(char *input)
 	if (!input)
 		return (0);
 	i = 0;
-	while (input[i])
-		i++;
+	if (input[i])
+	{
+		if (input[i] == '\0')
+			return (0);
+		while (input[i])
+			i++;
+	}
 	return (i);
 }
 
@@ -65,7 +70,7 @@ char	*fp_strcat(char **first, char *last)
 	int		j;
 	int		size;
 
-	size = fp_strlen(first[0]) + fp_strlen(last);
+	size = fp_strlen(first[0]) + BUFFER_SIZE;
 	output = (char *)malloc(sizeof(char) * (size + 1));
 	i = 0;
 	while (i < fp_strlen(first[0]))
@@ -74,11 +79,12 @@ char	*fp_strcat(char **first, char *last)
 		i++;
 	}
 	j = 0;
-	while (j < fp_strlen(last))
+	while (j < BUFFER_SIZE)
 	{
 		output[i] = last[j];
 		i++;
 		j++;
 	}
+	free (first[0]);
 	return (output);
 }

@@ -16,22 +16,26 @@ char	*get_next_line(int fd)
 {
 	static char	*memory;
 	char		*output;
-
-	memory = fp_readcpy(fd, '\n', memory);
+	
+	if (!memory)
+	{
+		memory = (char*)malloc(sizeof(char));
+		memory[0] = '\0';
+	}
+	memory = fp_readcpy(fd, '\n', &memory);
 	if (!memory)
 		return (NULL);
 	output = fp_cpychr(memory, '\n');
 	if (!output)
 		return (NULL);
-	memory = fp_rcpychr(memory, '\n');
+	memory = fp_rcpychr(&memory, '\n');
 	if (!memory)
 		return (NULL);
 	return (output);
 }
 
-char	*fp_readcpy(int fd, char end, char *memory)
+char	*fp_readcpy(int fd, char end, char **memory)
 {
-	char		*output;
 	char		buffer[BUFFER_SIZE];
 	int	bytes_read;
 
@@ -40,23 +44,18 @@ char	*fp_readcpy(int fd, char end, char *memory)
 	bytes_read = 0;
 	while (1)
 	{
-		if (!memory || fp_strchr(memory, end) == -1)
-			bytes_read = read(fd, buffer, BUFFER_SIZE);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == 0)
-			return (memory);
-		if (!memory && !output)
-			output = fp_strcpy(buffer);
-		else if (!memory)
-			output = fp_strcat(&output, buffer);
-		else
-		{
-			output = fp_strcat(&memory, buffer);
-			memory = output;
-		}
-		if (fp_strchr(buffer, end) >= 0 || !output)
-			break ;
-	}	
-	return (output);
+			return (0);
+		memory[0] = fp_strcat(memory, buffer);
+		if (!memory[0])
+			return (NULL);
+		if (fp_strchr(memory[0], end) >= 0)
+			break;
+	}
+	if (bytes_read != BUFFER_SIZE)
+		return (fp_cpychr(memory[0], end));
+	return (memory[0]);
 }
 
 char	*fp_cpychr(char *src, char end)
@@ -78,23 +77,26 @@ char	*fp_cpychr(char *src, char end)
 	return (output);
 }
 
-char	*fp_rcpychr(char *src, char end)
+char	*fp_rcpychr(char **src, char end)
 {
 	char	*output;
+	int		size;
 	int		i;
 	int		j;
 
-	i = fp_strchr(src, end) + 1;
+	size = fp_strlen(src[0]);
+	i = fp_strchr(src[0], end) + 1;
 	j = 0;
-	output = (char *)malloc(sizeof(char) * (fp_strlen(src) - i));
+	output = (char *)malloc(sizeof(char) * (size - i));
 	if (!output)
 		return (NULL);
-	while (src[i])
+	while (src[0][i])
 	{
-		output[j] = src[i];
+		output[j] = src[0][i];
 		i++;
 		j++;
 	}
+	free(src[0]);
 	return (output);
 }
 

@@ -1,4 +1,5 @@
-Hello World
+First Line	Content;
 
-I'm Fauna Polaris your friendly neighborhood astronaut fairy.
-You're welcome to stay.
+Fauna Polaris Pinheiro Leite da Rosa;
+
+No one lives under the light house is an indie horror game about the psychological trauma that comes from solitude, in a world full of mysteries in a lovecraftian fashion.

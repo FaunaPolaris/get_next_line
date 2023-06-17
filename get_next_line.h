@@ -21,9 +21,9 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*fp_readcpy(int fd, char end, char *memory);
+char	*fp_readcpy(int fd, char end, char **memory);
 char	*fp_cpychr(char *src, char end);
-char	*fp_rcpychr(char *src, char end);
+char	*fp_rcpychr(char **src, char end);
 char	*fp_catchr(char *first, char *last, char end);
 char	*fp_strcpy(char *input);
 char	*fp_strcat(char **first, char *last);

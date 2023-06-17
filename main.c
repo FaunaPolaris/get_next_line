@@ -2,20 +2,29 @@
 #include <fcntl.h>
 #include "get_next_line.h"
 
-int	main(int argc, char **argv)
-{
-	int	fd;
-	int	i;
-	char	*output;
+#include <fcntl.h>
+#include <stdio.h>
+#include "get_next_line.h"
 
-	argc += 1;
-	fd = open (argv[1], O_RDONLY);
-	i = 0;
-	while (i < 10)
-	{
-		output = get_next_line(fd);
-		printf("%d: %s\n", i, output);
-		i++;
-		free(output);
-	}
+int main(int argc, char **argv)
+{
+    int fd;
+    char *line;
+
+    argc += 1;
+    fd = open(argv[1], O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Failed to open the file");
+        return 1;
+    }
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s", line);
+        free(line); // Remember to free the line allocated by get_next_line
+    }
+    close(fd);
+
+    return 0;
 }
+
