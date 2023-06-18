@@ -7,3 +7,4 @@
 0.2.1 structuring.Currentvalue
 0.2.1.1 separation.Equallines
 0.3.1 memory.grinding
+0.3.2 memory.missingfree

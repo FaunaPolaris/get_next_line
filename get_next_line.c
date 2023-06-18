@@ -87,7 +87,7 @@ char	*fp_rcpychr(char **src, char end)
 	size = fp_strlen(src[0]);
 	i = fp_strchr(src[0], end) + 1;
 	j = 0;
-	output = (char *)malloc(sizeof(char) * (size - i));
+	output = (char *)malloc(sizeof(char) * (size - i) + 1);
 	if (!output)
 		return (NULL);
 	while (src[0][i])
@@ -96,6 +96,7 @@ char	*fp_rcpychr(char **src, char end)
 		i++;
 		j++;
 	}
+	output[j] = '\0';
 	free(src[0]);
 	return (output);
 }

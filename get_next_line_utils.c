@@ -45,7 +45,7 @@ int	fp_strlen(char *input)
 	return (i);
 }
 
-char	*fp_strcpy(char *input)
+/*char	*fp_strcpy(char *input)
 {
 	char	*output;
 	int		i;
@@ -62,7 +62,7 @@ char	*fp_strcpy(char *input)
 	output[i] = '\0';
 	return (output);
 }
-
+*/
 char	*fp_strcat(char **first, char *last)
 {
 	char	*output;
@@ -85,6 +85,7 @@ char	*fp_strcat(char **first, char *last)
 		i++;
 		j++;
 	}
-	free (first[0]);
+	output[i] = '\0';
+	free(first[0]);
 	return (output);
 }
