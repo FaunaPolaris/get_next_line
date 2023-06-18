@@ -8,3 +8,4 @@
 0.2.1.1 separation.Equallines
 0.3.1 memory.grinding
 0.3.2 memory.missingfree
+0.3.4 memory.no_bytes_left

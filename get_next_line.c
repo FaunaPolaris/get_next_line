@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	memory = fp_rcpychr(&memory, '\n');
 	if (!memory)
-		return (NULL);
+		return(NULL);
 	return (output);
 }
 
@@ -46,15 +46,13 @@ char	*fp_readcpy(int fd, char end, char **memory)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == 0)
-			return (0);
-		memory[0] = fp_strcat(memory, buffer);
+			return (memory[0]);
+		memory[0] = fp_strcat(memory, buffer, bytes_read);
 		if (!memory[0])
 			return (NULL);
 		if (fp_strchr(memory[0], end) >= 0)
 			break;
 	}
-	if (bytes_read != BUFFER_SIZE)
-		return (fp_cpychr(memory[0], end));
 	return (memory[0]);
 }
 
@@ -64,6 +62,11 @@ char	*fp_cpychr(char *src, char end)
 	int		i;
 
 	i = 0;
+	if (src[i] == '\0')
+	{
+		free(src);
+		return (NULL);
+	}
 	output = (char *)malloc(sizeof(char) * fp_strchr(src, end) + 2);
 	if (!output)
 		return (NULL);
@@ -98,26 +101,5 @@ char	*fp_rcpychr(char **src, char end)
 	}
 	output[j] = '\0';
 	free(src[0]);
-	return (output);
-}
-
-char	*fp_catchr(char *first, char *last, char end)
-{
-	char	*output;
-	int		size;
-	int		i;
-	int		j;
-
-	size = fp_strlen(first) + fp_strchr(last, end);
-	output = (char *)malloc(sizeof(char) * size + 1);
-	if (!output)
-		return (NULL);
-	i = 0;
-	while (first[i])
-		output[i] = first[i];
-	j = 0;
-	while (last[j++] && i++)
-		output[i] = last[j++];
-	free(first);
 	return (output);
 }
