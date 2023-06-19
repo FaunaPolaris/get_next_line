@@ -17,30 +17,55 @@ char	*get_next_line(int fd)
 	static char	*memory;
 	static int	bytes;
 
-	bytes = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (memory)
+	if (memory && bytes >= 1)
 	{
 		memory = fp_rcpychr(&memory, '\n');
 		if (!memory)
 			return (NULL);
 	}
-	else
+	else if (!memory)
 	{
-		memory = (char*)malloc(sizeof(char));
+		memory = (char*)malloc(sizeof(char) * 1);
 		memory[0] = '\0';
 	}
 	memory = fp_readcpy(fd, '\n', &memory, &bytes);
 	if (!memory)
 		return (NULL);
-	return (fp_cpychr(&memory, '\n'));
+	return (fp_remember(&memory, &bytes));
 }
 
+char	*fp_remember(char **memory, int *bytes)
+{
+	char	*output;
+
+	if (memory[0][0] == '\0')
+		return (NULL);
+	if (fp_strchr(*memory, '\n') >= 0)
+	{
+		output = fp_cpychr(memory, '\n');
+		if (!output)
+			return (NULL);
+	}
+	else
+	{
+		output = fp_cpychr(memory, '\0');
+		if (!output)
+			return (NULL);
+	}
+	if (*bytes == 0)
+	{
+		free(memory[0]);
+		memory[0] = NULL;
+	}
+	return (output);
+}
 char	*fp_readcpy(int fd, char end, char **memory, int *bytes)
 {
-	char		buffer[BUFFER_SIZE];
+	char		buffer[];
 
+	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (fd < 0)
 		return (NULL);
 	while (1)
@@ -48,7 +73,7 @@ char	*fp_readcpy(int fd, char end, char **memory, int *bytes)
 		*bytes = read(fd, buffer, BUFFER_SIZE);
 		if (*bytes < 0)
 		{
-			free(memory[0]);
+			free(buffer);
 			return (NULL);
 		}
 		if (*bytes == 0)

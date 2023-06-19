@@ -28,5 +28,5 @@ char	*fp_strcat(char **first, char *last, int n);
 int		fp_strchr(char *input, char end);
 int		fp_chrerror(char *input, char end);
 int		fp_strlen(char *input);
-
+char		*fp_remember(char **memory, int *bytes);
 #endif
