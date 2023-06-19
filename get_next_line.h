@@ -20,13 +20,15 @@
 #  define BUFFER_SIZE 42
 # endif
 
-char	*get_next_line(int fd);
-char	*fp_readcpy(int fd, char end, char **memory, int *bytes);
-char	*fp_cpychr(char **src, char end);
-char	*fp_rcpychr(char **src, char end);
-char	*fp_strcat(char **first, char *last, int n);
-int		fp_strchr(char *input, char end);
-int		fp_chrerror(char *input, char end);
-int		fp_strlen(char *input);
-char		*fp_remember(char **memory, int *bytes);
+char		*get_next_line(int fd);
+char		*read_to_line(int fd, char *str);
+char		*fp_findl(char *memory);
+char		*fp_findnextl(char *memory);
+char		*fp_joinfree(char *memory, char *buffer);
+char		*fp_strjoin(char const *s1, char const *s2);
+char		*fp_strchr(const char *str, int c);
+void		*fp_calloc(size_t count, size_t size);
+char		*fp_cutstr(char const *s, unsigned int start, size_t len);
+size_t		fp_strlen(const char *str);
+
 #endif
