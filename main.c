@@ -23,8 +23,9 @@ int main(int argc, char **argv)
         printf("%s", line);
         free(line); // Remember to free the line allocated by get_next_line
     }
+    line = get_next_line(fd);
+    free(line);
     close(fd);
-
     return 0;
 }
 

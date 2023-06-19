@@ -10,3 +10,5 @@
 0.3.2 memory.missingfree
 0.3.4 memory.no_bytes_left
 0.4.1 no_nl.identifying
+0.4.2 invalid_read
+0.4.3 new_structure

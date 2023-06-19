@@ -17,11 +17,11 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 20
+#  define BUFFER_SIZE 42
 # endif
 
 char	*get_next_line(int fd);
-char	*fp_readcpy(int fd, char end, char **memory);
+char	*fp_readcpy(int fd, char end, char **memory, int *bytes);
 char	*fp_cpychr(char **src, char end);
 char	*fp_rcpychr(char **src, char end);
 char	*fp_strcat(char **first, char *last, int n);
