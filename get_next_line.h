@@ -22,10 +22,11 @@
 
 char	*get_next_line(int fd);
 char	*fp_readcpy(int fd, char end, char **memory);
-char	*fp_cpychr(char *src, char end);
+char	*fp_cpychr(char **src, char end);
 char	*fp_rcpychr(char **src, char end);
 char	*fp_strcat(char **first, char *last, int n);
 int		fp_strchr(char *input, char end);
+int		fp_chrerror(char *input, char end);
 int		fp_strlen(char *input);
 
 #endif

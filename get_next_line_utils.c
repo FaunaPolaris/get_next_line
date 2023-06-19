@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int	fp_strchr(char *input, char end)
+int	fp_chrerror(char *input, char end)
 {
 	int	i;
 
@@ -23,6 +23,21 @@ int	fp_strchr(char *input, char end)
 	{
 		if (input[i] == '\0')
 			return (-1);
+		i++;
+	}
+	return (1);
+}
+int	fp_strchr(char *input, char end)
+{
+	int	i;
+
+	i = 0;
+	if (input[i] == end)
+		return (0);
+	while (input[i] != end)
+	{
+		if (input[i] == '\0')
+			return (i);
 		i++;
 	}
 	return (i);
